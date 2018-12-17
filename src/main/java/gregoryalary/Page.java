@@ -1,5 +1,6 @@
 package gregoryalary;
 
+import gregoryalary.sidebar.Sidebar;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -20,8 +21,6 @@ public class Page {
     /** Static field used to lazy load the template content */
     private static String templateContent;
 
-    private final SidebarManager sidebar;
-
     /** The path of the page */
     private List<String> path;
 
@@ -35,38 +34,58 @@ public class Page {
      * Default constructor
      * @param path
      */
-    public Page(String path, SidebarManager sidebar) throws Exception {
+    public Page(String path) throws Exception {
         parsePath(path);
         content = MarkdownParser.parseFile(path);
-        this.sidebar = sidebar;
     }
 
+    /**
+     * Extract the title and parse the path from
+     * the path of the file from the root directory
+     * @param strPath the path of the file from the root directory
+     */
     private void parsePath(String strPath) {
         strPath = strPath.replace(AppConfig.get("rootDirectory"), "");
         path = new LinkedList<String>(Arrays.asList(strPath.split("/")));
         title = ((LinkedList<String>) path).getLast().replace(".md", "");
     }
 
-    public String render() throws Exception {
+    /**
+     * Render the page in HTML
+     * @return the html of the page
+     * @throws Exception if an error occured while loading the template
+     */
+    public String render(Sidebar sidebar) throws Exception {
         String page = Page.getTemplate();
         page = page.replace("{{#PROJECTNAME#}}", AppConfig.get("projectName"));
         page = page.replace("{{#TITLE#}}", title);
         page = page.replace("{{#PAGETITLE#}}", AppConfig.get("projectName") + " - " + title);
         page = page.replace("{{#CONTENT#}}", content);
         page = page.replace("{{#SIDEBAR#}}", sidebar.render(path.size()));
-        // Css link
-        String cssPath = "css/style.css";
-        if (path.size() > 1) {
-            for (int count = 0; count < (path.size() - 1); count++) {
-                cssPath = "../" + cssPath;
-            }
-        }
-        page = page.replace("{{#CSS#}}", "<link rel=\"stylesheet\" href=\"" + cssPath + "\">");
         return page;
     }
 
+    /**
+     * Getter for the path of the file
+     * @return the path of the file
+     */
     public List<String> getPath() {
         return path;
+    }
+
+    /**
+     * Generate the site path of a page
+     * Basically, concatenate the page path and the site directory path and replace .md with .html
+     * @return the site path of the page
+     */
+    public String getSitePath() {
+        StringBuilder path = new StringBuilder(AppConfig.get("siteDirectory"));
+        for (String step : getPath()) {
+            path.append(step);
+            path.append("/");
+        }
+        path.deleteCharAt(path.length() - 1);
+        return path.toString().replace(".md", ".html");
     }
 
     /**
@@ -76,7 +95,7 @@ public class Page {
      */
     private static String getTemplate() throws Exception {
         if (templateContent == null) {
-            File file = new File(AppConfig.get("template") + "template.html");
+            File file = new File(AppConfig.get("template"));
             templateContent = FileUtils.readFileToString(file);
         }
         return templateContent;

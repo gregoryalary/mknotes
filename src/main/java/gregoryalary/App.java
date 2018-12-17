@@ -9,7 +9,7 @@ public class App
     public static void main(String[] args) throws Exception
     {
         AppConfig.init();
-        SiteGenerator.generateSite();
+        (new SiteGenerator()).generateSite();
     }
 
 }

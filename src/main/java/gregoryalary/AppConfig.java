@@ -57,7 +57,7 @@ public class AppConfig {
     public static void init() {
         AppConfig.put("rootDirectory", "in/test/notes1/");
         AppConfig.put("siteDirectory", "out/test/notes1/");
-        AppConfig.put("template", "in/test/templates/template1/");
+        AppConfig.put("template", "in/test/templates/template.html");
         AppConfig.put("projectName", "Notes M1S2");
     }
 
