@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>{{#PAGETITLE#}}</title>
+    <meta charset="utf8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {{#CSS#}}
+</head>
+
+<body>
+    <div class="row container-fluid body-wrapper">
+        <div class="col-3 sidebar">
+            <h1 class="m-2 sidebar-title">{{#PROJECTNAME#}}</h1>
+            <h6 class="m-2 sidebar-sub-title">mknotes</h6>
+            <hr class="sidebar-hr">
+            {{#SIDEBAR#}}
+        </div>
+        <div class="col-9">
+            <div class="container mt-4">
+                <h1 class="title">{{#TITLE#}}</h1>
+                <hr>
+                <div>
+                    {{#CONTENT#}}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
