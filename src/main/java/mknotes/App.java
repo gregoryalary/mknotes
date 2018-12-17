@@ -1,4 +1,4 @@
-package gregoryalary;
+package mknotes;
 
 /**
  * Hello world!

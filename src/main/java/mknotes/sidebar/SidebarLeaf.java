@@ -1,4 +1,4 @@
-package gregoryalary.sidebar;
+package mknotes.sidebar;
 
 public class SidebarLeaf extends SidebarNode {
 

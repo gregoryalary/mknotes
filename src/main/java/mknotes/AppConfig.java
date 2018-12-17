@@ -1,4 +1,4 @@
-package gregoryalary;
+package mknotes;
 
 import java.util.HashMap;
 

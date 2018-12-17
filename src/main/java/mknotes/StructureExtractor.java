@@ -1,4 +1,4 @@
-package gregoryalary;
+package mknotes;
 
 import org.apache.commons.io.FileUtils;
 
@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * Utility class made to extract the site architecture from
  * the root folder
- * @author gregoryalary
+ * @author mknotes
  */
 public final class StructureExtractor {
 

@@ -1,4 +1,4 @@
-package gregoryalary;
+package mknotes;
 
 import static org.junit.Assert.assertTrue;
 

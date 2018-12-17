@@ -1,4 +1,4 @@
-package gregoryalary.sidebar;
+package mknotes.sidebar;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -1,4 +1,4 @@
-package gregoryalary;
+package mknotes;
 
 import org.junit.Before;
 import org.junit.Test;

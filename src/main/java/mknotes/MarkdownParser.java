@@ -1,4 +1,4 @@
-package gregoryalary;
+package mknotes;
 
 import org.apache.commons.io.FileUtils;
 import org.commonmark.node.Node;

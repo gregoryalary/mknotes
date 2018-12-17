@@ -1,6 +1,6 @@
-package gregoryalary;
+package mknotes;
 
-import gregoryalary.sidebar.Sidebar;
+import mknotes.sidebar.Sidebar;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -18,7 +18,7 @@ import java.util.List;
  *  - A path
  *  - A title
  *  - A content
- * @author gregoryalary
+ * @author mknotes
  */
 public class Page {
 

@@ -1,4 +1,4 @@
-package gregoryalary.sidebar;
+package mknotes.sidebar;
 
 import java.util.Arrays;
 import java.util.LinkedList;
