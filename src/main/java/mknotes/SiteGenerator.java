@@ -1,5 +1,8 @@
 package mknotes;
 
+import mknotes.pages.IndexPage;
+import mknotes.pages.MarkdownPage;
+import mknotes.pages.Page;
 import mknotes.sidebar.Sidebar;
 import org.apache.commons.io.FileUtils;
 
@@ -26,13 +29,19 @@ public class SiteGenerator {
     public void generateSite() throws Exception {
         for (File f : files) {
             // Instanciate the new page
-            Page page = new Page(f.toString());
+            Page page = new MarkdownPage(f.toString());
             String path = page.getSitePath();
             // Create new file and overwrite the content
             FileUtils.touch(new File(path));
             File file = new File(path);
             FileUtils.write(file, page.render(sidebarManager));
         }
+        // Index
+        Page index = new IndexPage();
+        String path = index.getSitePath();
+        FileUtils.touch(new File(path));
+        File file = new File(path);
+        FileUtils.write(file, index.render(sidebarManager));
     }
 
     /**

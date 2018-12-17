@@ -1,5 +1,7 @@
-package mknotes;
+package mknotes.pages;
 
+import mknotes.AppConfig;
+import mknotes.MarkdownParser;
 import mknotes.sidebar.Sidebar;
 import org.apache.commons.io.FileUtils;
 
@@ -20,13 +22,7 @@ import java.util.List;
  *  - A content
  * @author mknotes
  */
-public class Page {
-
-    /** Static field used to lazy load the template content */
-    private static String templateContent;
-
-    /** The path of the page */
-    private List<String> path;
+public class MarkdownPage extends Page {
 
     /** The title of the page */
     private String title;
@@ -41,7 +37,7 @@ public class Page {
      * Default constructor
      * @param path
      */
-    public Page(String path) throws Exception {
+    public MarkdownPage(String path) throws Exception {
         parsePath(path);
         content = MarkdownParser.parseFile(path);
         lastModified = Files.getLastModifiedTime(Paths.get(path));
@@ -64,7 +60,7 @@ public class Page {
      * @throws Exception if an error occured while loading the template
      */
     public String render(Sidebar sidebar) throws Exception {
-        String page = Page.getTemplate();
+        String page = getTemplate();
         page = page.replace("{{#PROJECTNAME#}}", AppConfig.get("projectName"));
         page = page.replace("{{#TITLE#}}", title);
         page = page.replace("{{#PAGETITLE#}}", AppConfig.get("projectName") + " - " + title);
@@ -80,34 +76,6 @@ public class Page {
      */
     public List<String> getPath() {
         return path;
-    }
-
-    /**
-     * Generate the site path of a page
-     * Basically, concatenate the page path and the site directory path and replace .md with .html
-     * @return the site path of the page
-     */
-    public String getSitePath() {
-        StringBuilder path = new StringBuilder(AppConfig.get("siteDirectory"));
-        for (String step : getPath()) {
-            path.append(step);
-            path.append("/");
-        }
-        path.deleteCharAt(path.length() - 1);
-        return path.toString().replace(".md", ".html");
-    }
-
-    /**
-     * Lazy load, cache the template content and return it
-     * @return
-     * @throws Exception
-     */
-    private static String getTemplate() throws Exception {
-        if (templateContent == null) {
-            File file = new File(AppConfig.get("template"));
-            templateContent = FileUtils.readFileToString(file);
-        }
-        return templateContent;
     }
 
 }
