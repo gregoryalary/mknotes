@@ -4,6 +4,10 @@ import gregoryalary.sidebar.Sidebar;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
+import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +34,9 @@ public class Page {
     /** The content of the page */
     private String content;
 
+    /** The last modification date of the file */
+    FileTime lastModified;
+
     /**
      * Default constructor
      * @param path
@@ -37,6 +44,7 @@ public class Page {
     public Page(String path) throws Exception {
         parsePath(path);
         content = MarkdownParser.parseFile(path);
+        lastModified = Files.getLastModifiedTime(Paths.get(path));
     }
 
     /**
@@ -62,6 +70,7 @@ public class Page {
         page = page.replace("{{#PAGETITLE#}}", AppConfig.get("projectName") + " - " + title);
         page = page.replace("{{#CONTENT#}}", content);
         page = page.replace("{{#SIDEBAR#}}", sidebar.render(path.size()));
+        page = page.replace("{{#LASTMODIFIED#}}", "Last modified on "+ DateFormat.getDateInstance(DateFormat.SHORT).format(lastModified.toMillis()) + ".");
         return page;
     }
 
