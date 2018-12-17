@@ -1,5 +1,6 @@
 package gregoryalary;
 
+import gregoryalary.sidebar.Sidebar;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -9,54 +10,41 @@ import java.util.List;
 
 public class SiteGenerator {
 
-    /**
-     * Generate the site path of a page
-     * Basically, concatenate the page path and the site directory path and replace .md with .html
-     * @param page
-     * @return the site path of the page
-     */
-    private static String getSitePath(Page page) {
-        StringBuilder path = new StringBuilder(AppConfig.get("siteDirectory"));
-        for (String step : page.getPath()) {
-            path.append(step);
-            path.append("/");
-        }
-        path.deleteCharAt(path.length() - 1);
-        return path.toString().replace(".md", ".html");
-    }
+    Sidebar sidebarManager;
 
-    /**
-     * Copy the css directory
-     */
-    public static void copyCssDirectory() throws Exception {
-        FileUtils.copyDirectory(new File(AppConfig.get("template") + "css/"), new File(AppConfig.get("siteDirectory") + "css/"));
+    Collection<File> files;
+
+    public SiteGenerator() {
+        files = StructureExtractor.getRootStructure();
+        initSidebar();
     }
 
     /**
      * Generate all the notes pages
      * @throws Exception
      */
-    public static void generateSite() throws Exception {
-        Collection<File> files = StructureExtractor.getRootStructure();
-        SidebarManager sidebar = initSidebar(files);
+    public void generateSite() throws Exception {
         for (File f : files) {
             // Instanciate the new page
-            Page page = new Page(f.toString(), sidebar);
-            String path = getSitePath(page);
+            Page page = new Page(f.toString());
+            String path = page.getSitePath();
             // Create new file and overwrite the content
             FileUtils.touch(new File(path));
             File file = new File(path);
-            FileUtils.write(file, page.render());
+            FileUtils.write(file, page.render(sidebarManager));
         }
-        copyCssDirectory();
     }
 
-    private static SidebarManager initSidebar(Collection<File> files) {
+    /**
+     * Initialize the sideBarManager by create a new LinkedList containing all the
+     * site files
+     */
+    private void initSidebar() {
         List<String> pageList = new LinkedList<>();
         for (File f : files) {
             pageList.add(f.toString().replace(AppConfig.get("rootDirectory"), "").replace(".md", ".html"));
         }
-        return new SidebarManager(pageList);
+        sidebarManager = new Sidebar(pageList);
     }
 
 }
