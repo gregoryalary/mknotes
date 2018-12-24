@@ -1,3 +1,0 @@
-# Comment faire
-
-Voila comment.
