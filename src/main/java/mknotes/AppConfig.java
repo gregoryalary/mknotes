@@ -1,5 +1,9 @@
 package mknotes;
 
+import org.apache.commons.io.FileUtils;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.HashMap;
 
 public class AppConfig {
@@ -54,11 +58,13 @@ public class AppConfig {
     /**
      * Init the config with the default values
      */
-    public static void init() {
-        AppConfig.put("rootDirectory", "in/test/notes1/");
-        AppConfig.put("siteDirectory", "out/test/notes1/");
-        AppConfig.put("template", "in/test/templates/template.html");
-        AppConfig.put("projectName", "Notes M1S2");
+    public static void init() throws Exception {
+        File file = new File("mknotes.json");
+        JSONObject object = new JSONObject(FileUtils.readFileToString(file));
+        AppConfig.put("rootDirectory", object.getString("rootDirectory"));
+        AppConfig.put("siteDirectory", object.getString("siteDirectory"));
+        AppConfig.put("template", object.getString("template"));
+        AppConfig.put("projectName", object.getString("projectName"));
     }
 
 }
