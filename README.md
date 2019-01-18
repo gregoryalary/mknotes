@@ -12,6 +12,8 @@ A simple command line application to generate a website containing all your scho
 
 # Usage
 
+### Require Java 8 or higher.
+
 Use the `-c` or `--create` options to create a new note directory as such `mknotes -c="My notes"`.
 
 Move into the freshly created directory and start taking your notes in markdown in the `notes/` directory.
