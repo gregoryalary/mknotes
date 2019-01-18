@@ -2,7 +2,7 @@
 
 A simple command line application to generate a website containing all your school notes.
 
-
+![screenshot](https://user-images.githubusercontent.com/20248805/51412184-07ee0200-1b6b-11e9-9606-211962d53a7d.png)
 
 # Installation
 
