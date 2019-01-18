@@ -30,6 +30,6 @@ notes
     └── Variables.md
 ```
 
-Use the `-s` or `--site` options to export your notes. The website will be located in the 'site/` directory.
+Use the `-s` or `--site` options to export your notes. The website will be located in the `site/` directory.
 
 # Enjoy !
