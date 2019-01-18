@@ -2,6 +2,8 @@
 
 A simple command line application to generate a website containing all your school notes.
 
+
+
 # Installation
 
 Download the .jar file [here](https://github.com/gregoryalary/mknotes/raw/master/artifacts/mknotes.jar).
@@ -14,7 +16,8 @@ Use the `-c` or `--create` options to create a new note directory as such `mknot
 
 Move into the freshly created directory and start taking your notes in markdown in the `notes/` directory.
 You can create as much directory and file in the `notes/` directory.
-Exemple :
+
+Example :
 ```
 notes
 ├── Data structures
