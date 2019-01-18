@@ -6,13 +6,13 @@ A simple command line application to generate a website containing all your scho
 
 # Installation
 
+#### Require Java 8 or higher
+
 - Download the .jar file [here](https://github.com/gregoryalary/mknotes/raw/master/artifacts/mknotes.jar).
 - Add an alias in your `~/.bashrc` file : `alias mknotes="java -jar "~/path/to/mknotes.jar""`.
 - Open a new terminal and type `mknotes -V` to make sure that everything works.
 
 # Usage
-
-### Require Java 8 or higher.
 
 Use the `-c` or `--create` options to create a new note directory as such `mknotes -c="My notes"`.
 
