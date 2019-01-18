@@ -105,13 +105,16 @@ public final class ProjectCreator {
                     "    <title>{{#PAGETITLE#}}</title>\n" +
                     "    <meta charset=\"utf8\">\n" +
                     "    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">\n" +
+                    "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css\">\n" +
                     "    <style>\n" +
                     "        html, body {\n" +
                     "            height: 100%;\n" +
                     "        }\n" +
                     "\n" +
                     "        .body-wrapper {\n" +
-                    "            height : 100%;\n" +
+                    "            height : 100vh;\n" +
+                    "            margin: 0;\n" +
+                    "            padding: 0;\n" +
                     "        }\n" +
                     "\n" +
                     "        .sidebar {\n" +
@@ -120,6 +123,8 @@ public final class ProjectCreator {
                     "        }\n" +
                     "\n" +
                     "        .list-title {\n" +
+                    "            margin-top: .3rem;\n" +
+                    "            margin-bottom: .3rem;\n" +
                     "            color: lightgray;\n" +
                     "        }\n" +
                     "\n" +
@@ -143,9 +148,16 @@ public final class ProjectCreator {
                     "            border-color: gray;\n" +
                     "        }\n" +
                     "\n" +
+                    "        h1 {\n" +
+                    "            margin-bottom: 30px;\n" +
+                    "            margin-top: 30px;\n" +
+                    "            font-weight : bold;\n" +
+                    "        }\n" +
+                    "\n" +
                     "        .title {\n" +
                     "            font-weight : bold;\n" +
                     "            font-size: 3rem;\n" +
+                    "            color: black;\n" +
                     "        }\n" +
                     "\n" +
                     "        .link-sidebar:hover {\n" +
@@ -160,8 +172,15 @@ public final class ProjectCreator {
                     "        img {\n" +
                     "            text-align: center;\n" +
                     "        }\n" +
+                    "        \n" +
+                    "        .col-content {\n" +
+                    "            max-height: 100vh;\n" +
+                    "            overflow-y: scroll;\n" +
+                    "        }\n" +
                     "\n" +
                     "    </style>\n" +
+                    "    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js\"></script>\n" +
+                    "    <script>hljs.initHighlightingOnLoad();</script>\n" +
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
@@ -172,7 +191,7 @@ public final class ProjectCreator {
                     "            <hr class=\"sidebar-hr\">\n" +
                     "            {{#SIDEBAR#}}\n" +
                     "        </div>\n" +
-                    "        <div class=\"col-9\">\n" +
+                    "        <div class=\"col-9 col-content\">\n" +
                     "            <div class=\"container mt-4\">\n" +
                     "                <h1 class=\"title\">{{#TITLE#}}</h1>\n" +
                     "                <hr>\n" +
