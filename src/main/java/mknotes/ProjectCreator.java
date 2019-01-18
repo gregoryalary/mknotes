@@ -3,7 +3,10 @@ package mknotes;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import static org.apache.commons.io.FileUtils.forceMkdir;
 
@@ -12,6 +15,8 @@ public final class ProjectCreator {
     public String projectName;
 
     public File projectDirectory;
+
+    private String templateContent;
 
     public ProjectCreator(String projectName) {
         this.projectName = projectName.replace("/", "");
@@ -76,7 +81,7 @@ public final class ProjectCreator {
         forceMkdir(templateDirectory);
         FileUtils.cleanDirectory(templateDirectory);
         File template = new File(projectDirectory + "/.template/template.html");
-        FileUtils.writeStringToFile(template, TEMPLATE_CONTENT);
+        FileUtils.writeStringToFile(template, getTemplateContent());
     }
 
     /**
@@ -97,114 +102,13 @@ public final class ProjectCreator {
     /**
      * The html content of the template
      */
-    private static final String TEMPLATE_CONTENT =
-            "<!doctype html>\n" +
-                    "<html>\n" +
-                    "\n" +
-                    "<head>\n" +
-                    "    <title>{{#PAGETITLE#}}</title>\n" +
-                    "    <meta charset=\"utf8\">\n" +
-                    "    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">\n" +
-                    "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css\">\n" +
-                    "    <style>\n" +
-                    "        html, body {\n" +
-                    "            height: 100%;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .body-wrapper {\n" +
-                    "            height : 100vh;\n" +
-                    "            margin: 0;\n" +
-                    "            padding: 0;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .sidebar {\n" +
-                    "            background-color: black;\n" +
-                    "            color: white;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .list-title {\n" +
-                    "            margin-top: .3rem;\n" +
-                    "            margin-bottom: .3rem;\n" +
-                    "            color: lightgray;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .side-list {\n" +
-                    "            list-style-type: none;\n" +
-                    "            padding-left: 20px;\n" +
-                    "            font-size: 20px;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .first-side-list {\n" +
-                    "            list-style-type: none;\n" +
-                    "            padding-left: 0px;\n" +
-                    "            font-size: 25px;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .sidebar-sub-title {\n" +
-                    "            color: lightgray;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .sidebar-hr {\n" +
-                    "            border-color: gray;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        h1 {\n" +
-                    "            margin-bottom: 30px;\n" +
-                    "            margin-top: 30px;\n" +
-                    "            font-weight : bold;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .title {\n" +
-                    "            font-weight : bold;\n" +
-                    "            font-size: 3rem;\n" +
-                    "            color: black;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        .link-sidebar:hover {\n" +
-                    "            color: white;\n" +
-                    "            text-decoration: none;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        p {\n" +
-                    "            text-align: justify;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "        img {\n" +
-                    "            text-align: center;\n" +
-                    "        }\n" +
-                    "        \n" +
-                    "        .col-content {\n" +
-                    "            max-height: 100vh;\n" +
-                    "            overflow-y: scroll;\n" +
-                    "        }\n" +
-                    "\n" +
-                    "    </style>\n" +
-                    "    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js\"></script>\n" +
-                    "    <script>hljs.initHighlightingOnLoad();</script>\n" +
-                    "</head>\n" +
-                    "\n" +
-                    "<body>\n" +
-                    "    <div class=\"row container-fluid body-wrapper\">\n" +
-                    "        <div class=\"col-3 sidebar\">\n" +
-                    "            <h1 class=\"m-2 sidebar-title\">{{#PROJECTNAME#}}</h1>\n" +
-                    "            <h6 class=\"m-2 sidebar-sub-title\">mknotes</h6>\n" +
-                    "            <hr class=\"sidebar-hr\">\n" +
-                    "            {{#SIDEBAR#}}\n" +
-                    "        </div>\n" +
-                    "        <div class=\"col-9 col-content\">\n" +
-                    "            <div class=\"container mt-4\">\n" +
-                    "                <h1 class=\"title\">{{#TITLE#}}</h1>\n" +
-                    "                <hr>\n" +
-                    "                <div>\n" +
-                    "                    {{#CONTENT#}}\n" +
-                    "                </div>\n" +
-                    "                <hr>\n" +
-                    "                <h6 class=\"lastmodified mt-4 mb-4 pull-right text-right\">{{#LASTMODIFIED#}}</h6>\n" +
-                    "            </div>\n" +
-                    "        </div>\n" +
-                    "    </div>\n" +
-                    "</body>\n" +
-                    "\n" +
-                    "</html>";
+    private String getTemplateContent() throws Exception {
+        if (templateContent == null) {
+            InputStream in = getClass().getResourceAsStream("/template-default.html");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            templateContent = org.apache.commons.io.IOUtils.toString(reader);
+        }
+        return templateContent;
+    }
 
 }

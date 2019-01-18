@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>{{#PAGETITLE#}}</title>
+    <meta charset="utf8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css">
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .body-wrapper {
+            height : 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            background-color: black;
+            color: white;
+        }
+
+        .list-title {
+            margin-top: .3rem;
+            margin-bottom: .3rem;
+            color: lightgray;
+        }
+
+        .side-list {
+            list-style-type: none;
+            padding-left: 20px;
+            font-size: 20px;
+        }
+
+        .first-side-list {
+            list-style-type: none;
+            padding-left: 0px;
+            font-size: 25px;
+        }
+
+        .sidebar-sub-title {
+            color: lightgray;
+        }
+
+        .sidebar-hr {
+            border-color: gray;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            margin-top: 30px;
+            font-weight : bold;
+        }
+
+        .title {
+            font-weight : bold;
+            font-size: 3rem;
+            color: black;
+        }
+
+        .link-sidebar:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        img {
+            text-align: center;
+        }
+
+        .col-content {
+            max-height: 100vh;
+            overflow-y: scroll;
+        }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+<div class="row container-fluid body-wrapper">
+    <div class="col-3 sidebar">
+        <h1 class="m-2 sidebar-title">{{#PROJECTNAME#}}</h1>
+        <h6 class="m-2 sidebar-sub-title">mknotes</h6>
+        <hr class="sidebar-hr">
+        {{#SIDEBAR#}}
+    </div>
+    <div class="col-9 col-content">
+        <div class="container mt-4">
+            <h1 class="title">{{#TITLE#}}</h1>
+            <hr>
+            <div>
+                {{#CONTENT#}}
+            </div>
+            <hr>
+            <h6 class="lastmodified mt-4 mb-4 pull-right text-right">{{#LASTMODIFIED#}}</h6>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

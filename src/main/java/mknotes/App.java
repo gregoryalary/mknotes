@@ -14,7 +14,7 @@ import static org.fusesource.jansi.Ansi.ansi;
  */
 @CommandLine.Command(
         description = "A simple command line tool to export notes.",
-        name = "mknotes", mixinStandardHelpOptions = true, version = "mknotes 0.1"
+        name = "mknotes", mixinStandardHelpOptions = true, version = "mknotes 0.1.1"
 )
 public class App implements Callable<Void> {
 
